@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background-color: #0d0d0d;
+}
+
+body {
+  background-color: #0d0d0d;
+  color: #ffffff;
+}
+
+section {
+  scroll-margin-top: 80px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+::-webkit-scrollbar-thumb {
+  background: #f26522;
+  border-radius: 2px;
+}
+
+/* Text selection */
+::selection {
+  background: #f26522;
+  color: #ffffff;
+}
+
+/* Fix datetime-local calendar icon for dark mode */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.5;
+}
+
+/* Pause marquee on hover */
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Keyboard focus rings — orange, matching brand */
+:focus-visible {
+  outline: 2px solid #f26522;
+  outline-offset: 3px;
+}
+
+/* Page-enter animation (replaces Framer Motion in template.tsx) */
+@keyframes arion-page-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+.arion-page-enter {
+  animation: arion-page-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Animated underline wipe for nav links */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: width 300ms ease-out;
+}
+.nav-underline:hover::after {
+  width: 100%;
+}
