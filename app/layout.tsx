@@ -1,89 +1,55 @@
-import type { Metadata } from 'next'
-import { Inter_Tight, Playfair_Display, Inter } from 'next/font/google'
-import Script from 'next/script'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import SmoothScroll from '@/components/SmoothScroll'
-import { site } from '@/data/site'
-import './globals.css'
+import type { Metadata } from "next";
+import { Kalam, Patrick_Hand } from "next/font/google";
+import "./globals.css";
+import Navbar from "@/components/sections/Navbar";
+import Footer from "@/components/sections/Footer";
 
-const interTight = Inter_Tight({
-  subsets: ['latin'],
-  weight: ['400', '600', '800', '900'],
-  variable: '--font-inter-tight',
-  display: 'swap',
-})
+const kalam = Kalam({
+  subsets: ["latin"],
+  variable: "--font-kalam",
+  weight: ["400", "700"],
+  display: "swap",
+});
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  style: ['italic'],
-  weight: ['400', '700'],
-  variable: '--font-playfair',
-  display: 'swap',
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-inter',
-  display: 'swap',
-})
+const patrickHand = Patrick_Hand({
+  subsets: ["latin"],
+  variable: "--font-patrick-hand",
+  weight: ["400"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: {
-    default: site.meta.defaultTitle,
-    template: site.meta.titleTemplate,
-  },
-  description: site.meta.defaultDescription,
+  title: "Arion AI — Recruiting Intelligence Built on Correctness",
+  description:
+    "Arion scores interview answers on factual correctness, not keyword matching or fluency. Stop advancing the wrong candidates. Built for staffing firms.",
+  keywords: ["recruiting AI", "interview screening", "staffing software", "hiring intelligence"],
   openGraph: {
-    title: site.meta.defaultTitle,
-    description: site.meta.defaultDescription,
-    url: site.url,
-    siteName: site.fullName,
-    type: 'website',
+    title: "Arion AI — Recruiting Intelligence Built on Correctness",
+    description: "Stop advancing the wrong candidates. Arion scores interview answers on correctness, not fluency.",
+    url: "https://arionaisolutions.com",
+    siteName: "Arion AI",
+    locale: "en_US",
+    type: "website",
   },
-  metadataBase: new URL(site.url),
-  twitter: {
-    card: 'summary_large_image',
-    title: site.meta.defaultTitle,
-    description: site.meta.defaultDescription,
-  },
-}
+};
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${playfair.variable} ${inter.variable}`}
+      className={`${kalam.variable} ${patrickHand.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="bg-arion-bg text-white antialiased">
-        {/* Skip-to-content for screen readers */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-arion-orange focus:text-white focus:px-4 focus:py-2 focus:font-inter-tight focus:text-sm focus:tracking-wide focus:uppercase focus:outline-none"
-        >
-          Skip to content
-        </a>
-
-        <SmoothScroll />
+      <body className="min-h-full flex flex-col text-[#2d2d2d]">
         <Navbar />
-
-        <main id="main-content">
+        <main className="flex-1 pt-20">
           {children}
         </main>
-
         <Footer />
-
-        {/* Plausible analytics — only loads when NEXT_PUBLIC_PLAUSIBLE_DOMAIN is set */}
-        {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
-          <Script
-            defer
-            data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-            src="https://plausible.io/js/script.js"
-            strategy="afterInteractive"
-          />
-        )}
       </body>
     </html>
-  )
+  );
 }

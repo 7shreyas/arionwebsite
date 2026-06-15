@@ -1,78 +1,123 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-html {
-  background-color: #0d0d0d;
-}
-
-body {
-  background-color: #0d0d0d;
-  color: #ffffff;
-}
-
-section {
-  scroll-margin-top: 80px;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: #0d0d0d;
-}
-::-webkit-scrollbar-thumb {
-  background: #f26522;
-  border-radius: 2px;
-}
-
-/* Text selection */
-::selection {
-  background: #f26522;
-  color: #ffffff;
-}
-
-/* Fix datetime-local calendar icon for dark mode */
-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  opacity: 0.5;
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* Hand-drawn palette */
+  --color-paper: #fdfbf7;
+  --color-pencil: #2d2d2d;
+  --color-muted-paper: #e5e0d8;
+  --color-red: #FF6B2B;
+  --color-blue-pen: #2d5da1;
+  /* Fonts */
+  --font-heading: var(--font-kalam);
+  --font-sans: var(--font-patrick-hand);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
 }
 
-/* Pause marquee on hover */
-.marquee-track:hover {
-  animation-play-state: paused;
+:root {
+  --background: #fdfbf7;
+  --foreground: #2d2d2d;
+  --card: #ffffff;
+  --card-foreground: #2d2d2d;
+  --popover: #ffffff;
+  --popover-foreground: #2d2d2d;
+  --primary: #FF6B2B;
+  --primary-foreground: #ffffff;
+  --secondary: #e5e0d8;
+  --secondary-foreground: #2d2d2d;
+  --muted: #e5e0d8;
+  --muted-foreground: #737373;
+  --accent: #FF6B2B;
+  --accent-foreground: #ffffff;
+  --destructive: #FF6B2B;
+  --border: #2d2d2d;
+  --input: #2d2d2d;
+  --ring: #2d2d2d;
+  --radius: 0.75rem;
+  --sidebar: #fdfbf7;
+  --sidebar-foreground: #2d2d2d;
+  --sidebar-primary: #FF6B2B;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e5e0d8;
+  --sidebar-accent-foreground: #2d2d2d;
+  --sidebar-border: #2d2d2d;
+  --sidebar-ring: #2d2d2d;
 }
 
-/* Keyboard focus rings — orange, matching brand */
-:focus-visible {
-  outline: 2px solid #f26522;
-  outline-offset: 3px;
+/* Hand-drawn utility classes */
+@layer utilities {
+  .wobbly {
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
+  .wobbly-alt {
+    border-radius: 15px 225px 15px 255px / 225px 15px 255px 15px;
+  }
+  .wobbly-btn {
+    border-radius: 100px 8px 100px 8px / 8px 100px 8px 100px;
+  }
+  .wobbly-sm {
+    border-radius: 60px 8px 60px 8px / 8px 60px 8px 60px;
+  }
+  .hard-shadow {
+    box-shadow: 4px 4px 0px 0px #2d2d2d;
+  }
+  .hard-shadow-sm {
+    box-shadow: 3px 3px 0px 0px #2d2d2d;
+  }
+  .hard-shadow-lg {
+    box-shadow: 6px 6px 0px 0px #2d2d2d;
+  }
+  .hard-shadow-white {
+    box-shadow: 4px 4px 0px 0px rgba(255,255,255,0.25);
+  }
+  .tape {
+    position: relative;
+  }
+  .tape::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1deg);
+    width: 80px;
+    height: 22px;
+    background: rgba(200, 195, 180, 0.55);
+    border: 1px solid rgba(45,45,45,0.15);
+    z-index: 10;
+    border-radius: 2px;
+  }
 }
 
-/* Page-enter animation (replaces Framer Motion in template.tsx) */
-@keyframes arion-page-enter {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: none; }
-}
-.arion-page-enter {
-  animation: arion-page-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* Animated underline wipe for nav links */
-.nav-underline {
-  position: relative;
-}
-.nav-underline::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: white;
-  transition: width 300ms ease-out;
-}
-.nav-underline:hover::after {
-  width: 100%;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    background-color: #fdfbf7;
+    background-image: radial-gradient(#e5e0d8 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: #2d2d2d;
+    font-family: var(--font-patrick-hand), sans-serif;
+  }
+  html {
+    scroll-smooth: true;
+  }
 }
